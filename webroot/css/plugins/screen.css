@@ -1,0 +1,8 @@
+body, td{font:12px Verdana;}
+img,
+#menu,
+#footer,
+.action {display:none;}
+td, th {border:1px solid #000;}
+.large {min-width:250px;}
+.align {text-align:center;}

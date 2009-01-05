@@ -1,44 +1,35 @@
 <?php
-/* SVN FILE: $Id: bootstrap.php 7945 2008-12-19 02:16:01Z gwoo $ */
-/**
- * Short description for file.
- *
- * Long description for file
- *
- * PHP versions 4 and 5
- *
- * CakePHP(tm) :  Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @filesource
- * @copyright     Copyright 2005-2008, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link          http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
- * @package       cake
- * @subpackage    cake.app.config
- * @since         CakePHP(tm) v 0.10.8.2117
- * @version       $Revision: 7945 $
- * @modifiedby    $LastChangedBy: gwoo $
- * @lastmodified  $Date: 2008-12-18 20:16:01 -0600 (Thu, 18 Dec 2008) $
- * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
- */
-/**
- *
- * This file is loaded automatically by the app/webroot/index.php file after the core bootstrap.php is loaded
- * This is an application wide file to load any function that is not used within a class define.
- * You can also use this to include or require any files in your application.
- *
- */
-/**
- * The settings below can be used to set additional paths to models, views and controllers.
- * This is related to Ticket #470 (https://trac.cakephp.org/ticket/470)
- *
- * $modelPaths = array('full path to models', 'second full path to models', 'etc...');
- * $viewPaths = array('this path to views', 'second full path to views', 'etc...');
- * $controllerPaths = array('this path to controllers', 'second full path to controllers', 'etc...');
- *
- */
-//EOF
+
+// This file is used to add project constants or other stuff used in global scope of project.
+Configure::write('Project.name', 'Base');
+Configure::write('Project.alias', 'base');
+Configure::write('Project.mail', 'noreply@base.com');
+
+// SMTP configuration
+Configure::write('Smtp.host', 'mail.webtrin.net');
+Configure::write('Smtp.username', 'test@webtrin.net');
+Configure::write('Smtp.password', 'bundinha');
+Configure::write('Smtp.port', '25');
+Configure::write('Smtp.timeout', '10');
+
+// Error message for validation
+define('MSG_REQUIRED',     'This field is required.');
+define('MSG_EMAIL',        'Please enter a valid email address.');
+define('MSG_URL',          'Please enter a valid URL.');
+define('MSG_DATE',         'Please enter a valid date.');
+define('MSG_NUMBER',       'Please enter a valid number.');
+define('MSG_ALPHANUMERIC', 'Please enter only letters and numbers.');
+define('MSG_CREDITCARD',   'Please enter a valid credit card.');
+define('MSG_EQUALTO',      'Please enter the same value again.');
+define('MSG_POSTAL',       'Please enter a valid zipcode.');
+define('MSG_MAXLENGTH',    'Please enter no more than %s characters.');
+define('MSG_MINLENGTH',    'Please enter at least %s characters.');
+define('MSG_BETWEEN',      'Please enter a value between %s and %s characters long.');
+
+// access controller
+Configure::write('loggedInActions', array(
+	'checkout' => '',
+	'my_account' => ''
+));
+
 ?>

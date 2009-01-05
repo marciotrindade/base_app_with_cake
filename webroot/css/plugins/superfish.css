@@ -1,0 +1,15 @@
+#menu *{margin:0;padding:0;}
+#menu ul{width:100px;top:-999em;position:absolute;}
+#menu li{width:100px;float:left;list-style:none;position:relative;z-index:100;text-align:center;}
+#menu a{display:block;padding:6px 4px;}
+#menu li:hover ul,ul#menu li.sfHover ul{left:-2px;top:28px;}
+#menu li li:hover ul,ul#menu li li.sfHover ul{left:150px;top:-1px;}
+#menu li li{float:none;width:150px;display:block;}
+#menu li li a{float:none;text-align:left;margin:0;}
+#menu {font:14px "Gill Sans","Trebuchet MS",Arial, Verdana, Tahoma, sans-serif;}
+#menu li {display:inline;list-style-type:none; margin:0 2px;background:#000;}
+/*#menu li.selected, #menu li.selected a {background:white; color:#000;}*/
+#menu a {color:#FFCC00;padding:5px 10px;border:solid 1px #666;}
+#menu li a {border-width: 0 1px 1px 1px;background:#000;display:block;}
+#menu a:hover{color:#FFF;}
+#menu li ul li {*margin:-4px 0;}
