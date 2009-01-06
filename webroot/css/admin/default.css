@@ -33,6 +33,8 @@ dt              {font-weight: bold;padding-left: 4px;vertical-align: top;}
 dd              {margin-left: 10em;margin-top: -2em;vertical-align: top;}
 
 label           {display:block;margin-top:5px;font-weight:bold;}
+.checkbox label {display:inline; font-weight:normal; margin-left:5px;}
+.checkbox input {width:auto;}
 form p span     {display:block;margin-bottom:5px;}
 form .submit    {margin-top:10px;}
 

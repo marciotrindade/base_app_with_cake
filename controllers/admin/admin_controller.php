@@ -44,6 +44,14 @@ class AdminController extends AppController
 		foreach($this->beforFilter as $filter){
 			$this->$filter();
 		}
+
+		$model_low = Inflector::variable($this->modelClass);
+		$controller_low = Inflector::variable($this->name);
+		$model = Inflector::humanize($this->modelClass);
+		$controller = Inflector::humanize($this->name);
+
+		$this->set(compact("model_low", "controller_low", "model", "controller"));
+
 	}
 
 	function index()
@@ -55,6 +63,7 @@ class AdminController extends AppController
 	function add()
 	{
 		$this->load_vars();
+		$this->render("/admin/add");
 	}
 
 	function create()
@@ -64,12 +73,12 @@ class AdminController extends AppController
 			$this->{$this->modelClass}->create();
 			if ($this->{$this->modelClass}->save($this->data))
 			{
-				$this->Session->setFlash(sprintf(__('The %1 has been created', true), Inflector::humanize($this->modelClass)));
-				$this->redirect(array('action'=>'index'));
+				$this->Session->setFlash(sprintf(__("The %1 has been created", true), Inflector::humanize($this->modelClass)));
+				$this->redirect(array("action"=>"index"));
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__('The %1 could not be saved. Please, try again.', true), Inflector::humanize($this->modelClass)));
+				$this->Session->setFlash(sprintf(__("The %1 could not be saved. Please, try again.", true), Inflector::humanize($this->modelClass)));
 				$this->setAction("add");
 			}
 		}
@@ -79,6 +88,7 @@ class AdminController extends AppController
 	{
 		$this->data = $this->{$this->modelClass}->read();
 		$this->load_vars();
+		$this->render("/admin/edit");
 	}
 
 	function update()
@@ -87,12 +97,12 @@ class AdminController extends AppController
 		{
 			if ($this->{$this->modelClass}->save($this->data))
 			{
-				$this->Session->setFlash(sprintf(__('The %1 has been updated', true), Inflector::humanize($this->modelClass)));
-				$this->redirect(array('action'=>'index'));
+				$this->Session->setFlash(sprintf(__("The %1 has been updated", true), Inflector::humanize($this->modelClass)));
+				$this->redirect(array("action"=>"index"));
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__('The %1 could not be updated. Please, try again.', true), Inflector::humanize($this->modelClass)));
+				$this->Session->setFlash(sprintf(__("The %1 could not be updated. Please, try again.", true), Inflector::humanize($this->modelClass)));
 				$this->setAction("edit");
 			}
 		}
@@ -107,8 +117,8 @@ class AdminController extends AppController
 			{
 				$conditions = array("{$name}.id <>" => $this->{$this->modelClass}->id);
 			}
-			$var_name = Inflector::variable(Inflector::pluralize(preg_replace('/(?:_id)$/', '', $data['foreignKey'])));
-			$this->set($var_name, $this->{$this->modelClass}->{$name}->find('list', array("conditions" => $conditions)));
+			$var_name = Inflector::variable(Inflector::pluralize(preg_replace("/(?:_id)$/", "", $data["foreignKey"])));
+			$this->set($var_name, $this->{$this->modelClass}->{$name}->find("list", array("conditions" => $conditions)));
 		}
 
 		foreach ($this->{$this->modelClass}->hasAndBelongsToMany as $name => $data)
@@ -118,8 +128,8 @@ class AdminController extends AppController
 			{
 				$conditions = array("{$name}.id <>" => $this->{$this->modelClass}->id);
 			}
-			$var_name = Inflector::variable(Inflector::pluralize(preg_replace('/(?:_id)$/', '', $data['foreignKey'])));
-			$this->set($var_name, $this->{$this->modelClass}->{$name}->find('list', array("conditions" => $conditions)));
+			$var_name = Inflector::variable(Inflector::pluralize($name));
+			$this->set($var_name, $this->{$this->modelClass}->{$name}->find('list'));
 		}
 	}
 

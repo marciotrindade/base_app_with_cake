@@ -28,11 +28,15 @@
 </head>
 <body>
 
-<?php if($session->check('user')): ?>
-	<?php echo $this->element("/admin/layouts/info"); ?>
+<?php if($session->check("user")): ?>
+	<?php echo $this->element("/admin/layouts/_info"); ?>
 <?php endif; ?>
 
 <?php echo $html->image("admin/dbd.gif", array("alt"=>"Dburs Design")); ?>
+
+<?php if($session->check("user")): ?>
+	<?php echo $this->element("/admin/layouts/_menu"); ?>
+<?php endif; ?>
 
 <div id="content">
 	<?php $session->flash(); ?>

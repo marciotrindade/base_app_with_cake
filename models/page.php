@@ -1,12 +1,4 @@
 <?php
-/**
- *  Model
- * 
- * [Short Description]
- *
- * @package default
- * @author Marcio Trindade
- **/
 class Page extends AppModel {
 	var $name = "Page";
 
@@ -18,6 +10,7 @@ class Page extends AppModel {
 	);
 	
 	var $belongsTo = array("Parent" => array("className" => "Page", "foreignKey" => "parent_id"));
+	var $hasMany = array("Childrens" => array("className" => "Page", "foreignKey" => "parent_id", "order" => "position"));
 	
 	var $actsAs = array("Permalink", "Containable");
 }
