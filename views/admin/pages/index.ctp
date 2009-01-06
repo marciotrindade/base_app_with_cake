@@ -5,13 +5,12 @@
 		<tr>
 			<th>Name</th>
 		</tr>
-		<?php foreach ($pages as $id => $name): ?>
+		<?php foreach ($collection as $page): ?>
 			<tr>
-				<td><?php echo $name; ?></td>
+				<td><?php echo $page["Page"]["name"]; ?></td>
 				<td>
-					<?php echo $html->link(__("View", true), array("action"=>"view", $id));  ?>
-					<?php echo $html->link(__("Edit", true), array("action"=>"edit", $id));  ?>
-					<?php echo $html->link(__("Delete", true), array("action"=>"delete", $id), null, __("Are you sure you want to delete", true)." #" . $id); ?>
+					<?php echo $html->link(__("Edit", true), array("action"=>"edit", $page["Page"]["id"]));  ?>
+					<?php echo $html->link(__("Delete", true), array("action"=>"delete", $page["Page"]["id"]), null, __("Are you sure you want to delete", true)." #" . $page["Page"]["id"]); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
