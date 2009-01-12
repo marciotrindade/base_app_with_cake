@@ -9,7 +9,7 @@ class Page extends AppModel {
 		)
 	);
 	
-	var $belongsTo = array("Parent" => array("className" => "Page", "foreignKey" => "parent_id"));
+	var $belongsTo = array("Parent" => array("className" => "Page", "foreignKey" => "parent_id", "counterCache" => true));
 	var $hasMany = array("Childrens" => array("className" => "Page", "foreignKey" => "parent_id", "order" => "position"));
 	
 	var $actsAs = array("Permalink", "Containable");

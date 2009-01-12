@@ -16,7 +16,7 @@ class PermalinkBehavior extends ModelBehavior
 	function beforeSave(&$model)
 	{
 		$return = parent::beforeSave($model);
-		if (!$model->hasField($this->options["field"]))
+		if (!$model->hasField($this->options["field"]) || !isSet($model->data[$model->name][$this->options["field"]]))
 		{
 			return $return;
 		}
