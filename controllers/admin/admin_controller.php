@@ -2,20 +2,17 @@
 
 class AdminController extends AppController
 {
-
 	function __construct()
 	{
 		$this->viewPath = "admin" . DS . Inflector::underscore($this->name);
 		parent::__construct();
 	}
 
-	function beforeFilter() {
+	function beforeFilter()
+	{
 		// altera o layout
 		$this->layoutPath = "admin";
-		/*
-		 * se o usuário não estiver logado
-		 * salva a url solicitada em uma seção e
-		 * redireciona o usuário para a tela de login
+
 		if(!$this->Session->check("user"))
 		{
 			if(!empty($this->params["url"])){
@@ -26,10 +23,6 @@ class AdminController extends AppController
 			$this->Session->write("redirect", $url);
 			$this->redirect(array("controller" => "users", "action"=>"login", "admin"=>false));
 		}
-		/*
-		 * se está logado verifica se tem permissão de administrador
-		 * não tendo redireciona para o paginas de permisão.
-		 * tendo manda os dados do usuário para o view
 		else
 		{
 			$user = $this->Session->read("user");
@@ -38,9 +31,7 @@ class AdminController extends AppController
 				$this->redirect(array("controller"=>"users", "action"=>"permission_denied", "admin" => false));
 			}
 		}
-		/*
-		 * loop em todos os nomes de filtros e chama os mesmos.
-		 */
+
 		foreach($this->beforFilter as $filter){
 			$this->$filter();
 		}
@@ -51,19 +42,28 @@ class AdminController extends AppController
 		$controller = Inflector::humanize($this->name);
 
 		$this->set(compact("model_low", "controller_low", "model", "controller"));
-
 	}
 
 	function index()
 	{
-		$collection = $this->{$this->modelClass}->find("all");
+		if (!isset($this->order))
+		{
+			$this->order = $this->{$this->modelClass}->alias.".position";
+		}
+
+		$collection = $this->{$this->modelClass}->find("all", array("order" => $this->order));
 		$this->set(compact("collection"));
+
+		// render template
+		$this->render_action();
 	}
 
 	function add()
 	{
 		$this->load_vars();
-		$this->render("/admin/add");
+
+		// render template
+		$this->render_action();
 	}
 
 	function create()
@@ -73,12 +73,12 @@ class AdminController extends AppController
 			$this->{$this->modelClass}->create();
 			if ($this->{$this->modelClass}->save($this->data))
 			{
-				$this->Session->setFlash(sprintf(__("The %1 has been created", true), Inflector::humanize($this->modelClass)));
+				$this->Session->setFlash(sprintf(__("The %1 has been created", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
 				$this->redirect(array("action"=>"index"));
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__("The %1 could not be saved. Please, try again.", true), Inflector::humanize($this->modelClass)));
+				$this->Session->setFlash(sprintf(__("The %1 could not be created.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
 				$this->setAction("add");
 			}
 		}
@@ -88,7 +88,9 @@ class AdminController extends AppController
 	{
 		$this->data = $this->{$this->modelClass}->read();
 		$this->load_vars();
-		$this->render("/admin/edit");
+
+		// render template
+		$this->render_action();
 	}
 
 	function update()
@@ -97,15 +99,50 @@ class AdminController extends AppController
 		{
 			if ($this->{$this->modelClass}->save($this->data))
 			{
-				$this->Session->setFlash(sprintf(__("The %1 has been updated", true), Inflector::humanize($this->modelClass)));
+				$this->Session->setFlash(sprintf(__("The %1 has been updated", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
 				$this->redirect(array("action"=>"index"));
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__("The %1 could not be updated. Please, try again.", true), Inflector::humanize($this->modelClass)));
+				$this->Session->setFlash(sprintf(__("The %1 could not be updated.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
 				$this->setAction("edit");
 			}
 		}
+	}
+
+	function reorder($parent_id=null)
+	{
+		$conditions = array();
+		
+		if (isSet($parent_id)) {
+			$conditions = array($this->{$this->modelClass}->alias . ".parent_id" => $parent_id);
+		}
+	
+		$collection = $this->{$this->modelClass}->find("all", array("conditions" => $conditions, "order" => "position", "contain" => false));
+		$this->set(compact("collection"));
+
+		// render template
+		$this->render_action();
+	}
+
+	function order()
+	{
+		if(!empty($_POST)){
+			foreach($_POST['order'] as $k => $id){
+				$data[$this->modelClass]['id'] = $id;
+				$data[$this->modelClass]['position'] = $k;
+				$this->{$this->modelClass}->save($data);
+			}
+			Configure::write('debug', 0);
+			echo "true";
+			exit;
+		}
+	}
+
+	function destroy($id)
+	{
+		$this->{$this->modelClass}->delete($id);
+		$this->redirect(array("action"=>"index"));
 	}
 
 	function load_vars()
@@ -130,6 +167,15 @@ class AdminController extends AppController
 			}
 			$var_name = Inflector::variable(Inflector::pluralize($name));
 			$this->set($var_name, $this->{$this->modelClass}->{$name}->find('list'));
+		}
+	}
+
+	function render_action()
+	{
+		if (file_exists(VIEWS . $this->viewPath . DS . $this->action . $this->ext)) {
+			$this->render($this->action);
+		} else {
+			$this->render("/admin/scaffolds/{$this->action}");
 		}
 	}
 
