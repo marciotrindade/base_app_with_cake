@@ -15,10 +15,9 @@ class PagesController extends AppController {
 
 	function show($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Page.', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'home'));
 		}
-		$this->set('data', $this->Page->read(null, $id));
+		$this->set('page', $this->Page->findByPermalink($id));
 	}
 
 

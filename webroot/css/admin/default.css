@@ -38,6 +38,13 @@ label           {display:block;margin-top:5px;font-weight:bold;}
 form p span     {display:block;margin-bottom:5px;}
 form .submit    {margin-top:10px;}
 
+#flashMessage.success {color:green;}
+#flashMessage.error   {color:red;}
+#url_order            {display:none;}
+
+#name_of_cms {color:white; padding:15px 0 15px 30px; font:normal 30px Georgia; letter-spacing: -1px;}
+#name_of_cms sup {color:#FFCC00;font:12px verdana;letter-spacing:normal; text-transform:lowercase;}
+
 /* INFO */
 #info           {float:right; margin:20px 20px 50px 0;color:#FFCC00;text-align:right;}
 #info a         {color:#FFCC00;text-decoration:none;}

@@ -3,38 +3,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>.:: <?php echo Configure::read('Project.name') ?> ::. Admin</title>
+	<title>.:: <?php echo Configure::read('Project.name') ?> ::.</title>
 
 	<?php
 		echo $html->charset();
 		echo $html->meta("icon");
 
-		echo $html->css(array("admin/default", "plugins/superfish"));
+		echo $html->css(array("default"));
 	
 		echo $javascript->link(array(
 			"jquery",
 			"plugins/jquery-ui",
-			"plugins/metadata",
-			"plugins/validate",
-			"plugins/superfish",
-			"admin/default"
+			"default"
 		));
-		echo $javascript->codeBlock("var webroot = '" . $html->webroot("/admin/") . "';");
+		echo $javascript->codeBlock("var webroot = '" . $html->webroot("/") . "';");
 
 		echo $scripts_for_layout;
 	?>
 </head>
 <body>
 
-<?php if($session->check("user")): ?>
-	<?php echo $this->element("../admin/layouts/_info"); ?>
-<?php endif; ?>
-
-<h1 id="name_of_cms">Marcio Trindade <sup>CMS</sup></h1>
-
-<?php if($session->check("user")): ?>
-	<?php echo $this->element("../admin/layouts/_menu"); ?>
-<?php endif; ?>
+<?php echo $this->element("../layouts/_menu"); ?>
 
 <div id="content">
 	<?php $session->flash(); ?>
