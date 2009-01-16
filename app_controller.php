@@ -3,7 +3,8 @@
 class AppController extends Controller
 {
 	var $helpers = array("Html", "Form", "Javascript", "Session");
-	var $components = array("RequestHandler", "DebugKit.Toolbar");
+	//var $components = array("RequestHandler", "DebugKit.Toolbar");
+	var $components = array("RequestHandler");
 	var $beforFilter = array();
 
 	function __construct()

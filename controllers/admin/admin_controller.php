@@ -2,6 +2,8 @@
 
 class AdminController extends AppController
 {
+	var $helpers = array("Fck");
+	
 	function __construct()
 	{
 		$this->viewPath = "admin" . DS . Inflector::underscore($this->name);
