@@ -55,6 +55,9 @@ class AdminController extends AppController
 
 		$collection = $this->{$this->modelClass}->find("all", array("order" => $this->order));
 		$this->set(compact("collection"));
+		
+		$this->set("except", array("id", "created", "modified", "password"));
+		$this->set("schema", $this->{$this->modelClass}->_schema);
 
 		// render template
 		$this->render_action();

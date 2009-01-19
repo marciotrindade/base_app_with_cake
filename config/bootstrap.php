@@ -32,4 +32,10 @@ Configure::write('loggedInActions', array(
 	'my_account' => ''
 ));
 
+// date time
+Configure::write('format.date', 'm/d/Y');
+Configure::write('format.time', 'H:i:s');
+Configure::write('format.datetime', 'm/d/Y H:i:s');
+
+
 ?>

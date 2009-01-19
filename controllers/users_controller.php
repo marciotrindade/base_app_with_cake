@@ -37,7 +37,7 @@ class UsersController extends AppController
 				$this->Session->del('redirect');
 				$this->redirect('/'.$url);
 			}else{
-				$this->redirect(array('controller'=>'home', 'action'=>'index', 'admin'=>false));
+				$this->redirect(array('controller'=>'pages', 'action'=>'home', 'admin'=>false));
 			}
 		}
 	}
