@@ -33,7 +33,7 @@
 					}
 				?>
 				<td><?php echo $html->link(__("Edit", true), array("action"=>"edit", $obj[$model]["id"]));  ?></td>
-				<td><?php echo $html->link(__("Delete", true), array("action"=>"delete", $obj[$model]["id"]), null, __("Are you sure you want to delete", true)." #" . $obj[$model]["id"]); ?></td>
+				<td><?php echo $html->link(__("Destroy", true), array("action"=>"destroy", $obj[$model]["id"]), null, __("Are you sure?", true)); ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</table>

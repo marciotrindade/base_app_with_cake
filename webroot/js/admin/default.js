@@ -16,6 +16,11 @@ $(function (){
 		return false;
 	});
 	act_as_tree_start_efect();
+
+	// validate
+	$(".validate").each(function(){
+		$(this).validate();
+	});
 });
 
 var act_as_tree_id = 0;

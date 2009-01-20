@@ -6,8 +6,8 @@ class User extends AppModel
 	var $validate = array(
 		'username' => array(
 			'format' => array(
-				'rule' => 'alphaNumeric',
-				'message' => MSG_ALPHANUMERIC
+				'rule' => "/^[\d\w\.\-_@]+$/",
+				'message' => "use only letters, numbers, and .-_@ please."
 			),
 			'unique'=>array(
 				'rule'=>array('unique', 'name'),
@@ -16,7 +16,7 @@ class User extends AppModel
 		),
 		'password' => array(
 			'limit' => array(
-				'rule' => array('between', 6, 12),
+				'rule' => array('between', 3, 12),
 				'message' => "Please enter a value between 6 and 12 characters long."
 			)
 		),
