@@ -111,7 +111,7 @@ FCKConfig.ToolbarSets["Default"] = [
 ] ;
 
 FCKConfig.ToolbarSets["dburns"] = [
-	['FontFormat','Bold','Italic','Underline','-','OrderedList','UnorderedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','Link','Unlink','-','Image','Flash','Table','Rule','-','PasteText','-','SelectAll','RemoveFormat', 'Source']
+	['FontFormat','Bold','Italic','Underline','-','OrderedList','UnorderedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','Link','Unlink','Anchor','-','Image','Flash','Table','Rule','-','PasteText', 'PasteWord','-','SelectAll','RemoveFormat', 'Source', 'ShowBlocks']
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
