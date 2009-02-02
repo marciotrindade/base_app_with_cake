@@ -1,6 +1,6 @@
 #menu *{margin:0;padding:0;}
 #menu ul{width:100px;top:-999em;position:absolute;}
-#menu li{width:100px;float:left;list-style:none;position:relative;z-index:100;text-align:center;}
+#menu li{float:left;list-style:none;position:relative;z-index:100;text-align:center;}
 #menu a{display:block;padding:6px 4px;}
 #menu li:hover ul,ul#menu li.sfHover ul{left:-2px;top:28px;}
 #menu li li:hover ul,ul#menu li li.sfHover ul{left:150px;top:-1px;}

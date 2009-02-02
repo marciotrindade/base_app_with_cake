@@ -41,3 +41,6 @@
 
 <br/>
 <?php echo $html->link("New {$model}", array("action" => "add")); ?>
+<?php if (array_key_exists("position", $schema)): ?>
+ | <?php echo $html->link("Reorder {$controller}", array("action" => "reorder")); ?> 
+<?php endif; ?>
