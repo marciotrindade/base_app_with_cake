@@ -5,7 +5,7 @@
 	
 	<ul id="order">
 		<?php foreach ($collection as $obj): ?>
-			<li id="item_<?php echo $obj[$model]["id"] ?>"><?php echo $obj[$model]["name"] ?></li>
+			<li id="item_<?php echo $obj[$model]["id"] ?>"><?php echo $obj[$model][$field] ?></li>
 		<?php endforeach ?>
 	</ul>
 </div>

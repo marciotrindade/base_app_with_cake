@@ -3,6 +3,7 @@
 class AdminController extends AppController
 {
 	var $helpers = array("Fck");
+	var $default = "name";
 	
 	function __construct()
 	{
@@ -125,6 +126,8 @@ class AdminController extends AppController
 	
 		$collection = $this->{$this->modelClass}->find("all", array("conditions" => $conditions, "order" => "position", "contain" => false));
 		$this->set(compact("collection"));
+		
+		$this->set("default", $default);
 
 		// render template
 		$this->render_action();
