@@ -1,5 +1,5 @@
 <?php
-	Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
+	Router::connect('/', array('controller' => 'pages', 'action' => "show", 'home'));
 
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'show'));
 
