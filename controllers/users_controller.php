@@ -51,7 +51,7 @@ class UsersController extends AppController
 	function reset_password() 
 	{
 		$this->data['User']['id'] = 1;
-		$this->data['User']['password'] = 'bundinha';
+		$this->data['User']['password'] = 'admin';
 		$this->User->save($this->data);
 		e('Password for default user was reset!');
 		exit;

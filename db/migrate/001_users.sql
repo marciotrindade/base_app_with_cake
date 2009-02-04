@@ -13,4 +13,4 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into `users` values
-('1','marciotrindade','AmxWJgduAmdXOgNtAjkANw==','Marcio','marciotrindade@gmail.com','2009-01-12','2008-02-21 18:57:12','2009-01-12 13:44:05');
+('1','marciotrindade','aaa','Marcio','marciotrindade@gmail.com','2009-01-12','2008-02-21 18:57:12','2009-01-12 13:44:05');
