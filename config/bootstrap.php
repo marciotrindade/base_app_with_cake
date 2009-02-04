@@ -6,9 +6,9 @@ Configure::write('Project.alias', 'base');
 Configure::write('Project.mail', 'noreply@base.com');
 
 // SMTP configuration
-Configure::write('Smtp.host', 'mail.webtrin.net');
-Configure::write('Smtp.username', 'test@webtrin.net');
-Configure::write('Smtp.password', 'bundinha');
+Configure::write('Smtp.host', 'mail.dominio.com');
+Configure::write('Smtp.username', 'user@dominio.com');
+Configure::write('Smtp.password', 'password');
 Configure::write('Smtp.port', '25');
 Configure::write('Smtp.timeout', '10');
 
