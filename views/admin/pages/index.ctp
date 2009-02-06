@@ -2,7 +2,7 @@
 	<h2><?php echo $controller ?></h2>
 
 	<ul class="act_as_tree">
-		<?php echo $this->element("../admin/{$controllerLow}/_list"); ?>
+		<?php echo $this->element("../admin/scaffolds/_list"); ?>
 	</ul>
 
 </div>

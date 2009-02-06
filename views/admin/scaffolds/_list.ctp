@@ -12,7 +12,9 @@
 			<?php endif ?>
 			<?php echo $html->link("New children", array("action" => "add", $obj[$model]["id"])); ?>
 			<?php echo $html->link("Edit", array("action" => "edit", $obj[$model]["id"])); ?>
-			<?php echo $html->link("Destroy", array("action" => "destroy", $obj[$model]["id"]), null, "Are you sure?"); ?>
+			<?php if (!$obj[$model]["protected"]): ?>
+				<?php echo $html->link("Destroy", array("action" => "destroy", $obj[$model]["id"]), null, "Are you sure?"); ?>
+			<?php endif; ?>
 		</div>
 	</li>
 <?php endforeach ?>

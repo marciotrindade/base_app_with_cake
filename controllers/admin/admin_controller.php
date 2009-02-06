@@ -3,7 +3,7 @@
 class AdminController extends AppController
 {
 	var $helpers = array("Fck");
-	var $default = "name";
+	var $field = "name";
 	
 	function __construct()
 	{
@@ -57,7 +57,7 @@ class AdminController extends AppController
 		$collection = $this->{$this->modelClass}->find("all", array("order" => $this->order));
 		$this->set(compact("collection"));
 		
-		$this->set("except", array("id", "created", "modified", "password"));
+		$this->set("except", array("id", "created", "modified", "password", "position"));
 		$this->set("schema", $this->{$this->modelClass}->_schema);
 
 		// render template
@@ -79,6 +79,10 @@ class AdminController extends AppController
 			$this->{$this->modelClass}->create();
 			if ($this->{$this->modelClass}->save($this->data))
 			{
+				if (isSet($this->files))
+				{
+					$this->Upload->process();
+				}
 				$this->Session->setFlash(sprintf(__("The %1 has been created", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
 				$this->redirect(array("action"=>"index"));
 			}
@@ -87,6 +91,10 @@ class AdminController extends AppController
 				$this->Session->setFlash(sprintf(__("The %1 could not be created.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
 				$this->setAction("add");
 			}
+		}
+		else
+		{
+			$this->setAction("add");
 		}
 	}
 
@@ -105,6 +113,10 @@ class AdminController extends AppController
 		{
 			if ($this->{$this->modelClass}->save($this->data))
 			{
+				if (isSet($this->files))
+				{
+					$this->Upload->process();
+				}
 				$this->Session->setFlash(sprintf(__("The %1 has been updated", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
 				$this->redirect(array("action"=>"index"));
 			}
@@ -113,6 +125,10 @@ class AdminController extends AppController
 				$this->Session->setFlash(sprintf(__("The %1 could not be updated.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
 				$this->setAction("edit");
 			}
+		}
+		else
+		{
+			$this->setAction("edit");
 		}
 	}
 
@@ -126,9 +142,8 @@ class AdminController extends AppController
 	
 		$collection = $this->{$this->modelClass}->find("all", array("conditions" => $conditions, "order" => "position", "contain" => false));
 		$this->set(compact("collection"));
-		
-		$this->set("default", $default);
 
+		$this->set("field", $this->field);
 		// render template
 		$this->render_action();
 	}
