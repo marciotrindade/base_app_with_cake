@@ -23,6 +23,13 @@ class PagesController extends AppController {
 		}
 	}
 
+	function menu($id=0)
+	{
+		return $this->Page->find("all", array(
+			"conditions" => array("parent_id" => $id),
+			"contain" => array()
+		));
+	}
 
 }
 ?>
