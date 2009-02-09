@@ -30,7 +30,7 @@
 	<?php echo $content_for_layout; ?>
 </div>
 
-<div id="footer">Created by <?php echo $html->link("Marcio Trindade", "http://www.marciotrindade.net", array("target" => "_blank")) ?></div>
+<div id="footer">Created by <?php echo $html->link("Marcio Trindade", "http://www.marciotrindade.com", array("target" => "_blank")) ?></div>
 
 </body>
 </html>
