@@ -9,7 +9,7 @@ $("#page_<?php echo $id ?> .first").removeClass("first").find("img").attr("src",
 		$(this).addClass("close").find("img").attr("src", $(this).find("img").attr("src").replace("close", "open"));
 	}
 	return false;
-}).parent().append("<ul><?php echo $javascript->escapeScript($this->element("../admin/{$controllerLow}/_list")) ?></ul>").find(".first").click(function(){
+}).parent().append("<ul><?php echo $javascript->escapeScript($this->element("../admin/scaffolds/_list")) ?></ul>").find(".first").click(function(){
 	if ($(this).hasClass("first")) {
 		$.get($(this).attr("href"), null, null, "script");
 	}
