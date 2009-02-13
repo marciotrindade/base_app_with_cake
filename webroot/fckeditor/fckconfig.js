@@ -75,7 +75,7 @@ FCKConfig.FormatIndentator	= '    ' ;
 
 FCKConfig.StartupFocus	= false ;
 FCKConfig.ForcePasteAsPlainText	= false ;
-FCKConfig.AutoDetectPasteFromWord = true ;	// IE only.
+FCKConfig.AutoDetectPasteFromWord = false ;	// IE only.
 FCKConfig.ShowDropDialog = true ;
 FCKConfig.ForceSimpleAmpersand	= false ;
 FCKConfig.TabSpaces		= 0 ;
@@ -111,7 +111,7 @@ FCKConfig.ToolbarSets["Default"] = [
 ] ;
 
 FCKConfig.ToolbarSets["dburns"] = [
-	['FontFormat','Bold','Italic','Underline','-','OrderedList','UnorderedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','Link','Unlink','Anchor','-','Image','Flash','Table','Rule','-','PasteText', 'PasteWord','-','SelectAll','RemoveFormat', 'Source', 'ShowBlocks']
+	['FontFormat','Bold','Italic','Underline','-','OrderedList','UnorderedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','Link','Unlink','Anchor','-','Image','Flash','Table','Rule','-','SelectAll','RemoveFormat', 'Source', 'ShowBlocks']
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
