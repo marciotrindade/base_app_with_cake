@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>.:: <?php echo Configure::read('Project.name') ?> ::.</title>
+	<title><?php echo Configure::read('Project.name') ?></title>
 
 	<?php
 		echo $html->charset();
@@ -14,7 +14,9 @@
 		echo $javascript->link(array(
 			"jquery",
 			"plugins/jquery-ui",
-			"default"
+			"application",
+			"default",
+			"http://www.google-analytics.com/ga.js"
 		));
 		echo $javascript->codeBlock("var webroot = '" . $html->webroot("/") . "';");
 

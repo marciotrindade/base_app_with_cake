@@ -17,9 +17,8 @@ class Page extends AppModel {
 		"Containable",
 			"NamedScope" => array(
 				"root" => array(
-					"conditions" => array(
-						"Page.parent_id" => 0
-					)
+					"conditions" => array("Page.parent_id" => 0),
+					"order" => "Page.position ASC"
 				)
 			)
 	);

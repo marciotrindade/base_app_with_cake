@@ -4,6 +4,8 @@ class AdminController extends AppController
 {
 	var $helpers = array("Fck");
 	var $field = "name";
+	var $components = array('Upload');
+	var $except = array();
 	
 	function __construct()
 	{
@@ -51,13 +53,16 @@ class AdminController extends AppController
 	{
 		if (!isset($this->order))
 		{
-			$this->order = $this->{$this->modelClass}->alias.".position";
+			$this->order = $this->{$this->modelClass}->alias.".position ASC, ".$this->{$this->modelClass}->alias.".id DESC";
 		}
 
 		$collection = $this->{$this->modelClass}->find("all", array("order" => $this->order));
 		$this->set(compact("collection"));
 		
-		$this->set("except", array("id", "created", "modified", "password", "position"));
+		$associations = $this->__associations();
+	
+		$this->set("associations", $associations);
+		$this->set("except", am(array("id", "created", "modified", "password", "position", "permalink"), $this->except));
 		$this->set("schema", $this->{$this->modelClass}->_schema);
 
 		// render template
@@ -81,14 +86,20 @@ class AdminController extends AppController
 			{
 				if (isSet($this->files))
 				{
+					$this->data[$this->modelClass]["id"] = $this->{$this->modelClass}->getInsertID();
 					$this->Upload->process();
 				}
-				$this->Session->setFlash(sprintf(__("The %1 has been created", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
-				$this->redirect(array("action"=>"index"));
+				$this->Session->setFlash(sprintf(__("The %s has been created", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
+				if (isSet($this->data[$this->modelClass]["redirect_to"]))
+				{
+					$this->redirect(array("action"=>"index", $this->data[$this->modelClass]["redirect_to"]));
+				}else{
+					$this->redirect(array("action"=>"index"));
+				}
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__("The %1 could not be created.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
+				$this->Session->setFlash(sprintf(__("The %s could not be created.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
 				$this->setAction("add");
 			}
 		}
@@ -117,12 +128,17 @@ class AdminController extends AppController
 				{
 					$this->Upload->process();
 				}
-				$this->Session->setFlash(sprintf(__("The %1 has been updated", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
-				$this->redirect(array("action"=>"index"));
+				$this->Session->setFlash(sprintf(__("The %s has been updated", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
+				if (isSet($this->data[$this->modelClass]["redirect_to"]))
+				{
+					$this->redirect(array("action"=>"index", $this->data[$this->modelClass]["redirect_to"]));
+				}else{
+					$this->redirect(array("action"=>"index"));
+				}
 			}
 			else
 			{
-				$this->Session->setFlash(sprintf(__("The %1 could not be updated.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
+				$this->Session->setFlash(sprintf(__("The %s could not be updated.", true), Inflector::humanize($this->modelClass)), "default", array("class" => "error"));
 				$this->setAction("edit");
 			}
 		}
@@ -162,10 +178,11 @@ class AdminController extends AppController
 		}
 	}
 
-	function destroy($id)
+	function destroy($id, $parent=null)
 	{
 		$this->{$this->modelClass}->delete($id);
-		$this->redirect(array("action"=>"index"));
+		$this->Session->setFlash(sprintf(__("The %s has been destroyed", true), Inflector::humanize($this->modelClass)), "default", array("class" => "success"));
+		$this->redirect(array("action"=>"index", $parent));
 	}
 
 	function load_vars()
@@ -200,6 +217,22 @@ class AdminController extends AppController
 		} else {
 			$this->render("/admin/scaffolds/{$this->action}");
 		}
+	}
+
+	function __associations()
+	{
+		$keys = array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany');
+		$associations = array();
+
+		foreach ($keys as $key => $type) {
+			foreach ($this->{$this->modelClass}->{$type} as $assocKey => $assocData) {
+				$associations[$type][$assocKey]['primaryKey'] = $this->{$this->modelClass}->{$assocKey}->primaryKey;
+				$associations[$type][$assocKey]['displayField'] = $this->{$this->modelClass}->{$assocKey}->displayField;
+				$associations[$type][$assocKey]['foreignKey'] = $assocData['foreignKey'];
+				$associations[$type][$assocKey]['controller'] = Inflector::pluralize(Inflector::underscore($assocData['className']));
+			}
+		}
+		return $associations;
 	}
 
 }

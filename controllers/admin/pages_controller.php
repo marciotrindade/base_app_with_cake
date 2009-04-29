@@ -8,7 +8,7 @@ class PagesController extends AdminController {
 		{
 			$collection = $this->Page->find("all", array("conditions" => array("Page.parent_id" => $parent_id), "order" => "Page.position"));
 		}else{
-			$collection = $this->Page->root("all", array("order" => "Page.position"));
+			$collection = $this->Page->root("all");
 		}
 
 		$this->set(compact("collection"));

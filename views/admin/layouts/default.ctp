@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>.:: <?php echo Configure::read('Project.name') ?> ::. Admin</title>
+	<title><?php echo Configure::read('Project.name') ?> - Admin</title>
 
 	<?php
 		echo $html->charset();
@@ -17,6 +17,7 @@
 			"plugins/metadata",
 			"plugins/validate",
 			"plugins/superfish",
+			"application",
 			"admin/default"
 		));
 		echo $javascript->codeBlock("var webroot = '" . $html->webroot("/admin/") . "';");

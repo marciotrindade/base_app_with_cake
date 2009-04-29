@@ -1,12 +1,7 @@
-$(function(){
-	// ajax
-	$(".ajax").click(function(){
-		$.get($(this).attr("href"), null, null, "script");
-		return false;
-	});
-	
-	// validate
-	$(".validate").each(function(){
-		$(this).validate();
-	});
+$(document).ready(function() {
+	// Google Analytics
+	try {
+		var pageTracker = _gat._getTracker("");
+		pageTracker._trackPageview();
+	} catch(err) {}	
 });

@@ -38,8 +38,8 @@ label           {display:block;margin-top:5px;font-weight:bold;}
 form p span     {display:block;margin-bottom:5px;}
 form .submit    {margin-top:10px;}
 
-#flashMessage.success {color:green;}
-#flashMessage.error   {color:red;}
+#flashMessage.success {color:green;border:1px solid green;padding:3px; background-color:#B2DFB8;}
+#flashMessage.error   {color:red;border:1px solid red;padding:3px; background-color:#FDB5AF;}
 #url_order            {display:none;}
 
 #name_of_cms {color:white; padding:15px 0 15px 30px; font:normal 30px Georgia; letter-spacing: -1px;}
@@ -71,7 +71,7 @@ form .submit    {margin-top:10px;}
 /* CONTENT */
 #content        {background:#fff;color:#333;padding: 10px 20px 40px 20px;height:auto !important;height:300px;min-height:300px; clear:both;}
 
-#order li       {list-style:none; background-color:#f4f4f4; margin:5px 0; padding:5px; cursor:move;width:300px;}
+#order li       {list-style:none; background-color:#f4f4f4; margin:5px 0; padding:5px; cursor:move;width:100%;}
 
 form ul 				{margin-left: 10px;}
 
