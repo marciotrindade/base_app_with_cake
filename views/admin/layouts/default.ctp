@@ -9,7 +9,11 @@
 		echo $html->charset();
 		echo $html->meta("icon");
 
-		echo $html->css(array("admin/default", "plugins/superfish"));
+		echo $html->css(array(
+		    "admin/default", "plugins/superfish",
+		    "admin/default", "plugins/data_tables",
+		    "admin/default", "plugins/crossbrowser"
+		));
 	
 		echo $javascript->link(array(
 			"jquery",
@@ -17,6 +21,8 @@
 			"plugins/metadata",
 			"plugins/validate",
 			"plugins/superfish",
+			"plugins/data_tables",
+			"plugins/crossbrowser",
 			"application",
 			"admin/default"
 		));
@@ -24,6 +30,16 @@
 
 		echo $scripts_for_layout;
 	?>
+    <script type="text/javascript">
+        $(function(){
+	        $("#table").dataTable( {
+		        "aaSorting": [[ 0, "asc" ]],
+		        "sPaginationType": "full_numbers",
+		        "bStateSave": true,
+		        "bInfo": false
+	        }).css("width", "auto");
+        });
+    </script>
 </head>
 <body>
 

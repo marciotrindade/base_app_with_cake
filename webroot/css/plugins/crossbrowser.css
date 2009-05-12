@@ -1,0 +1,80 @@
+#crossbrowser {
+	background:#F5FAFF;
+	position:absolute;
+	width:100%;
+	left:0;
+	top:0;
+	text-align:left;
+	border-bottom:1px solid #AAAEB2;
+	z-index:999;
+}
+
+#crossbrowser #corss_content {
+	margin:0 auto;
+	height:30px;
+	width:950px;
+	position:relative;
+}
+
+#crossbrowser h1 {
+	font-size:15px;
+	position:absolute;
+	top:5px;
+	left:0;
+}
+
+#crossbrowser p {
+	font-size:10px;
+	position:absolute;
+	top:4px;
+	left:240px;
+	line-height:10px;
+}
+
+#crossbrowser ul {
+	position:absolute;
+	top:4px;
+	left:730px;
+}
+#crossbrowser li {
+	background: url(/images/crossbrowser/browsers.gif) -62px 0 no-repeat;
+	list-style:none;
+	float:left;
+	margin:0 0 0 8px;
+	display:block;
+	width:26px;
+	height:26px;
+	text-indent:-9999px;
+}
+
+#crossbrowser li a {
+	display:block;
+	width:26px;
+	height:26px;
+}
+
+
+#crossbrowser .chrome {
+	background-position:-120px 0;
+}
+#crossbrowser .safari {
+	background-position:-90px 0;
+}
+#crossbrowser .opera {
+	background-position:-149px 0;
+}
+#crossbrowser .explorer {
+	background-position:-177px 0;
+}
+
+
+#crossbrowser .cross_close {
+	position:absolute;
+	top:8px;
+	right:0;
+	display:block;
+	width:14px;
+	height:14px;
+	background:url(/images/crossbrowser/browsers.gif) 0px -34px no-repeat;
+	text-indent:-9999px;
+}

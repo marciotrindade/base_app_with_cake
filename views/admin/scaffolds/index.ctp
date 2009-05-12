@@ -1,13 +1,15 @@
 <div class="<?php echo $controllerLow ?> index">
 	<h2><?php echo $controller ?></h2>
 
-	<table>
+    <table cellspacing="0" class="display" id="table">
+      <thead>
 		<tr>
 			<?php foreach ($schema as $field => $options):?>
 				<?php if (in_array($field, $except)){continue;} ?>
 				<th><?php echo __(Inflector::humanize(preg_replace('/_id$/', '', $field)));?></th>
 			<?php endforeach;?>
 		</tr>
+      </thead>
 		<?php foreach ($collection as $obj): ?>
 			<tr>
 				<?php
