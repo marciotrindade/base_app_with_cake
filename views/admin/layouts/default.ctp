@@ -10,9 +10,10 @@
 		echo $html->meta("icon");
 
 		echo $html->css(array(
-		    "admin/default", "plugins/superfish",
-		    "admin/default", "plugins/data_tables",
-		    "admin/default", "plugins/crossbrowser"
+				"plugins/superfish",
+				"plugins/data_tables",
+				"plugins/crossbrowser",
+				"admin/default"
 		));
 	
 		echo $javascript->link(array(
