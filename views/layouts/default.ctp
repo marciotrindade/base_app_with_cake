@@ -13,7 +13,6 @@
 	
 		echo $javascript->link(array(
 			"jquery",
-			"plugins/jquery-ui",
 			"application",
 			"default",
 			"http://www.google-analytics.com/ga.js"

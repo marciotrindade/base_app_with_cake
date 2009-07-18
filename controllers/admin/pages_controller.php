@@ -1,12 +1,13 @@
 <?php
-class PagesController extends AdminController {
+class PagesController extends AdminController
+{
 	var $name = 'Pages';
 
-	function index($parent_id=false)
+	function index($id=false)
 	{
-		if ($parent_id)
+		if ($id)
 		{
-			$collection = $this->Page->find("all", array("conditions" => array("Page.parent_id" => $parent_id), "order" => "Page.position"));
+			$collection = $this->Page->childrens($id);
 		}else{
 			$collection = $this->Page->root("all");
 		}

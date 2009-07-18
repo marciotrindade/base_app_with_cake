@@ -1,34 +1,23 @@
 <?php
-/**
- * PagesController
- * 
- * @package default
- * @author Marcio Trindade
- **/
-
-class PagesController extends AppController {
+class PagesController extends AppController
+{
 	var $name = 'Pages';
 
-	function show($id = null) {
+	function show($id = null)
+	{
 		if (!$id) {
 			$this->redirect(array('action'=>'home'));
 		}
-		$this->set('page', $this->Page->findByPermalink($id));
+		$this->set('page', $this->Page->show($id));
 
 		$template = Inflector::underscore($id);
 		if (file_exists(VIEWS . $this->viewPath . DS . $template . $this->ext)) {
-			$this->render($template);
+			$template = $template;
 		} else {
-			$this->render("show");
+			$template = "show";
 		}
-	}
 
-	function menu($id=0)
-	{
-		return $this->Page->find("all", array(
-			"conditions" => array("parent_id" => $id),
-			"contain" => array()
-		));
+		$this->render($template);
 	}
 
 }

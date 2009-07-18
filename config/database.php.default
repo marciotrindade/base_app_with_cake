@@ -1,6 +1,6 @@
 <?php
-class DATABASE_CONFIG {
-
+class DATABASE_CONFIG
+{
 	var $default = array(
 		'driver' => 'mysql',
 		'persistent' => false,
@@ -8,16 +8,6 @@ class DATABASE_CONFIG {
 		'login' => 'root',
 		'password' => '',
 		'database' => 'base_development',
-		'prefix' => '',
-	);
-
-	var $test = array(
-		'driver' => 'mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => 'base_test',
 		'prefix' => '',
 	);
 }
