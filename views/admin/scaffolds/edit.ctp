@@ -5,5 +5,5 @@
 <?php echo $form->end("Update");?>
 </div>
 <br/>
-<?php echo $html->link(__("List {$controller}", true), array("action"=>"index"));?> |
+<?php echo $html->link(__("List {$controller}", true), array("action"=>"index", isSet($this->parent)?$this->parent:""));?> |
 <?php echo $html->link(__("Delete {$model}", true), array("action"=>"delete", $form->value("{$model}.id")));?>

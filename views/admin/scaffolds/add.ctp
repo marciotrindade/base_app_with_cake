@@ -6,4 +6,4 @@
 </div>
 
 <br/>
-<?php echo $html->link(__("List {$controller}", true), array("action"=>"index"));?>
+<?php echo $html->link(__("List {$controller}", true), array("action"=>"index", isSet($this->passedArgs[0])?$this->passedArgs[0]:""));?>
