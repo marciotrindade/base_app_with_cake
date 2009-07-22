@@ -3,9 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title><?php echo Configure::read('Project.name') ?></title>
-
 	<?php
+		echo $metaTags->generate((isset($meta)?$meta:array()), $title_for_layout);
 		echo $html->charset();
 		echo $html->meta("icon");
 

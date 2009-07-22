@@ -2,7 +2,7 @@
 
 class AdminController extends AppController
 {
-	var $helpers = array("Fck");
+	var $helpers = array("Fck", "Application");
 	var $field = "name";
 	var $components = array('Upload');
 	var $except = array();

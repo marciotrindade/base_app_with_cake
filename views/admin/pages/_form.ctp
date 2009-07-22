@@ -12,4 +12,6 @@
 	echo $form->input("name", array("class" => "required"));
 	echo $fck->input("body");
 	echo $form->input("parent_id", array("type" => "hidden", "value" => $parent));
+	
+  echo $this->element("../admin/scaffolds/_metatags");
 ?>
