@@ -6,6 +6,7 @@ class AdminController extends AppController
 	var $field = "name";
 	var $components = array('Upload');
 	var $except = array();
+	var $authorized = array("adm");
 	
 	function __construct()
 	{
@@ -18,24 +19,8 @@ class AdminController extends AppController
 		// altera o layout
 		$this->layoutPath = "admin";
 
-		if(!$this->Session->check("user"))
-		{
-			if(!empty($this->params["url"])){
-				$url = $this->params["url"]["url"];
-			}else{
-				$url = "/";
-			}
-			$this->Session->write("redirect", $url);
-			$this->redirect(array("controller" => "users", "action"=>"login", "admin"=>false));
-		}
-		else
-		{
-			$user = $this->Session->read("user");
-
-			if(!in_array("adm", $user["Group"])){
-				$this->redirect(array("controller"=>"users", "action"=>"permission_denied", "admin" => false));
-			}
-		}
+		// authorize with group admin
+		$this->__login_requeired();
 
 		foreach($this->beforFilter as $filter){
 			$this->$filter();

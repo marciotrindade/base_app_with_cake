@@ -5,7 +5,7 @@ CREATE TABLE `pages` (
   `body` text collate utf8_unicode_ci NOT NULL,
   `parent_id` int(11) NOT NULL default '0',
   `page_count` int(11) NOT NULL default '0',
-  `position` int(11) NOT NULL,
+  `position` int(11) NOT NULL default '100',
 	`protected` tinyint(1) NOT NULL default '0',
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
