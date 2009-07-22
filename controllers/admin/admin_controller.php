@@ -90,7 +90,7 @@ class AdminController extends AppController
 		}
 		else
 		{
-			$this->setAction("add");
+			$this->redirect(array("action" => "add"));
 		}
 	}
 
@@ -129,7 +129,7 @@ class AdminController extends AppController
 		}
 		else
 		{
-			$this->setAction("edit");
+			$this->redirect(array("action" => "index"));
 		}
 	}
 
