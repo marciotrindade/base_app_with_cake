@@ -74,7 +74,7 @@ FCKConfig.FormatOutput		= true ;
 FCKConfig.FormatIndentator	= '    ' ;
 
 FCKConfig.StartupFocus	= false ;
-FCKConfig.ForcePasteAsPlainText	= false ;
+FCKConfig.ForcePasteAsPlainText	= true ;
 FCKConfig.AutoDetectPasteFromWord = false ;	// IE only.
 FCKConfig.ShowDropDialog = true ;
 FCKConfig.ForceSimpleAmpersand	= false ;
