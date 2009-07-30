@@ -4,8 +4,7 @@
 	if ($this->action == "add")
 	{
 		echo $form->input("password", array("class" => "required"));
-	}else
-	{
+	}else{
 		echo $form->input("password");
 	}
 	echo $form->input("name", array("class" => "required"));

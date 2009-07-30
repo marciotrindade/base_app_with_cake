@@ -6,14 +6,12 @@ class PagesController extends AppController
 	function show($id = null)
 	{
 		if (!$id) {
-			$this->redirect(array('action'=>'home'));
+			$this->redirect("/");
 		}
-    $page = $this->Page->findByPermalink($id);
+		$page = $this->Page->show($id);
 
-    //MetaTags
-    $this->set("meta", $page["Page"]);
-
-    $this->set('page', $page);
+		$this->set("meta", $page["Page"]);
+		$this->set('page', $page);
 
 		$template = Inflector::underscore($id);
 		if (file_exists(VIEWS . $this->viewPath . DS . $template . $this->ext)) {
