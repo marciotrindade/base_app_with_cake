@@ -1,7 +1,7 @@
 <?php
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -30,15 +30,17 @@ function GetFolders( $resourceType, $currentFolder )
 	// Array that will hold the folders names.
 	$aFolders	= array() ;
 
-	$oCurrentFolder = opendir( $sServerDir ) ;
+	$oCurrentFolder = @opendir( $sServerDir ) ;
 
-	while ( $sFile = readdir( $oCurrentFolder ) )
+	if ($oCurrentFolder !== false)
 	{
-		if ( $sFile != '.' && $sFile != '..' && is_dir( $sServerDir . $sFile ) )
-			$aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) . '" />' ;
+		while ( $sFile = readdir( $oCurrentFolder ) )
+		{
+			if ( $sFile != '.' && $sFile != '..' && is_dir( $sServerDir . $sFile ) )
+				$aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) . '" />' ;
+		}
+		closedir( $oCurrentFolder ) ;
 	}
-
-	closedir( $oCurrentFolder ) ;
 
 	// Open the "Folders" node.
 	echo "<Folders>" ;
@@ -60,29 +62,34 @@ function GetFoldersAndFiles( $resourceType, $currentFolder )
 	$aFolders	= array() ;
 	$aFiles		= array() ;
 
-	$oCurrentFolder = opendir( $sServerDir ) ;
+	$oCurrentFolder = @opendir( $sServerDir ) ;
 
-	while ( $sFile = readdir( $oCurrentFolder ) )
+	if ($oCurrentFolder !== false)
 	{
-		if ( $sFile != '.' && $sFile != '..' )
+		while ( $sFile = readdir( $oCurrentFolder ) )
 		{
-			if ( is_dir( $sServerDir . $sFile ) )
-				$aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) . '" />' ;
-			else
+			if ( $sFile != '.' && $sFile != '..' )
 			{
-				$iFileSize = @filesize( $sServerDir . $sFile ) ;
-				if ( !$iFileSize ) {
-					$iFileSize = 0 ;
-				}
-				if ( $iFileSize > 0 )
+				if ( is_dir( $sServerDir . $sFile ) )
+					$aFolders[] = '<Folder name="' . ConvertToXmlAttribute( $sFile ) . '" />' ;
+				else
 				{
-					$iFileSize = round( $iFileSize / 1024 ) ;
-					if ( $iFileSize < 1 ) $iFileSize = 1 ;
-				}
+					$iFileSize = @filesize( $sServerDir . $sFile ) ;
+					if ( !$iFileSize ) {
+						$iFileSize = 0 ;
+					}
+					if ( $iFileSize > 0 )
+					{
+						$iFileSize = round( $iFileSize / 1024 ) ;
+						if ( $iFileSize < 1 )
+							$iFileSize = 1 ;
+					}
 
-				$aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
+					$aFiles[] = '<File name="' . ConvertToXmlAttribute( $sFile ) . '" size="' . $iFileSize . '" />' ;
+				}
 			}
 		}
+		closedir( $oCurrentFolder ) ;
 	}
 
 	// Send the folders
@@ -152,7 +159,7 @@ function CreateFolder( $resourceType, $currentFolder )
 		$sErrorNumber = '102' ;
 
 	// Create the "Error" node.
-	echo '<Error number="' . $sErrorNumber . '" originalDescription="' . ConvertToXmlAttribute( $sErrorMsg ) . '" />' ;
+	echo '<Error number="' . $sErrorNumber . '" />' ;
 }
 
 function FileUpload( $resourceType, $currentFolder, $sCommand )
@@ -184,15 +191,16 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 
 		if ( isset( $Config['SecureImageUploads'] ) )
 		{
-			if ( !IsImageValid( $oFile['tmp_name'], $sExtension ) )
+			if ( ( $isImageValid = IsImageValid( $oFile['tmp_name'], $sExtension ) ) === false )
 			{
 				$sErrorNumber = '202' ;
 			}
 		}
-		
+
 		if ( isset( $Config['HtmlExtensions'] ) )
 		{
-			if ( !IsHtmlExtension( $sExtension, $Config['HtmlExtensions'] ) && DetectHtml( $oFile['tmp_name'] ) )
+			if ( !IsHtmlExtension( $sExtension, $Config['HtmlExtensions'] ) &&
+				( $detectHtml = DetectHtml( $oFile['tmp_name'] ) ) === true )
 			{
 				$sErrorNumber = '202' ;
 			}
@@ -219,12 +227,39 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 
 					if ( is_file( $sFilePath ) )
 					{
+						if ( isset( $Config['ChmodOnUpload'] ) && !$Config['ChmodOnUpload'] )
+						{
+							break ;
+						}
+
+						$permissions = 0777;
+
+						if ( isset( $Config['ChmodOnUpload'] ) && $Config['ChmodOnUpload'] )
+						{
+							$permissions = $Config['ChmodOnUpload'] ;
+						}
+
 						$oldumask = umask(0) ;
-						chmod( $sFilePath, 0777 ) ;
+						chmod( $sFilePath, $permissions ) ;
 						umask( $oldumask ) ;
 					}
 
 					break ;
+				}
+			}
+
+			if ( file_exists( $sFilePath ) )
+			{
+				//previous checks failed, try once again
+				if ( isset( $isImageValid ) && $isImageValid === -1 && IsImageValid( $sFilePath, $sExtension ) === false )
+				{
+					@unlink( $sFilePath ) ;
+					$sErrorNumber = '202' ;
+				}
+				else if ( isset( $detectHtml ) && $detectHtml === -1 && DetectHtml( $sFilePath ) === true )
+				{
+					@unlink( $sFilePath ) ;
+					$sErrorNumber = '202' ;
 				}
 			}
 		}
