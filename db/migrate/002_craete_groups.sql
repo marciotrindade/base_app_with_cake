@@ -8,5 +8,5 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into `groups` values
-	('1','adm','Administrator'),
-	('2','usr','User');
+  ('1','adm','Administrator'),
+  ('2','usr','User');

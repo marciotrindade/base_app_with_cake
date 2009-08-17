@@ -1,6 +1,6 @@
 <?php foreach ($collection as $obj): ?>
 	<li id="page_<?php echo $obj[$model]["id"] ?>">
-		<?php if ($obj[$model]["{$modelLow}_count"] > 0): ?>
+		<?php if ($obj[$model][strtolower($model)."_count"] > 0): ?>
 			<?php echo $html->link($html->image('act_as_tree/open.gif', array("alt"=>"", "size" => "20x16")), array("action" => "index", "ext" => "js", $obj[$model]["id"]), array("class" => "first")); ?>
 		<?php else: ?>
 			<?php echo $html->image('act_as_tree/simple.gif', array("alt"=>"", "size" => "20x16")); ?>

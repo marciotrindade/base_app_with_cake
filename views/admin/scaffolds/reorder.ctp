@@ -1,5 +1,5 @@
-<div class="<?php echo $this->params["controller"] ?> index">
-	<h2><?php echo $controller ?></h2>
+<div class="<?php echo $controller ?> index">
+	<h2>Reorder <?php echo $h->nameize($controller); ?></h2>
 
 	<?php echo $html->link("order", array("action" => "order"), array("id" => "url_order")); ?>
 	
@@ -11,6 +11,6 @@
 </div>
 
 <br/>
-<?php echo $html->link("List {$controller}", array("action" => "index")); ?>
+<?php echo $html->link("List " . $h->nameize($controller), array("action" => "index", isSet($this->passedArgs[0])?$this->passedArgs[0]:"")); ?>
 
 <?php echo $this->addScript($javascript->link("admin/reorder")); ?>

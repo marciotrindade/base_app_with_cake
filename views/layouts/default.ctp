@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<?php
-		echo $metaTags->generate((isset($meta)?$meta:array()), $title_for_layout);
+		echo $h->head_tags((isset($meta)?$meta:array()), $title_for_layout);
 		echo $html->charset();
 		echo $html->meta("icon");
 

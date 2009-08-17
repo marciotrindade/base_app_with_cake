@@ -2,11 +2,12 @@
 
 class AdminController extends AppController
 {
-	var $helpers = array("Fck", "Application");
+	var $helpers = array("Fck", "H");
 	var $field = "name";
 	var $components = array('Upload');
 	var $except = array();
 	var $authorized = array("adm");
+	var $parent_id = "parent_id";
 	
 	function __construct()
 	{
@@ -26,12 +27,10 @@ class AdminController extends AppController
 			$this->$filter();
 		}
 
-		$model_low = Inflector::variable($this->modelClass);
-		$controller_low = Inflector::variable($this->name);
-		$model = Inflector::humanize($this->modelClass);
-		$controller = Inflector::humanize($this->name);
+		$model = $this->modelClass;
+		$controller = Inflector::tableize($this->name);
 
-		$this->set(compact("model_low", "controller_low", "model", "controller"));
+		$this->set(compact("model_low", "controller_low", "model", "controller", "model_case"));
 	}
 
 	function index()
@@ -47,20 +46,21 @@ class AdminController extends AppController
 		$associations = $this->__associations();
 	
 		$this->set("associations", $associations);
-		$this->set("except", am(array("id", "created", "modified", "password", "position", "permalink"), $this->except));
+		$this->set("except", am(array("id", "created", "modified", "password", "position", "metatitle", "metadescription", "metakeywords", "permalink"), $this->except));
 		$this->set("schema", $this->{$this->modelClass}->_schema);
 
 		// render template
 		$this->render_action();
 	}
 
+  //Inflector::pluralize(Inflector::underscore())
 	function add()
 	{
 		$this->load_vars();
 
 		// render template
 		$this->render_action();
-	}
+}
 
 	function create()
 	{
@@ -138,7 +138,7 @@ class AdminController extends AppController
 		$conditions = array();
 		
 		if (isSet($parent_id)) {
-			$conditions = array($this->{$this->modelClass}->alias . ".parent_id" => $parent_id);
+			$conditions = array($this->{$this->modelClass}->alias . "." . $this->parent_id => $parent_id);
 		}
 	
 		$collection = $this->{$this->modelClass}->find("all", array("conditions" => $conditions, "order" => "position", "contain" => false));

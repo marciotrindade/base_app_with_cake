@@ -1,15 +1,15 @@
-<div class="<?php echo $controllerLow ?> index">
-	<h2><?php echo $controller ?></h2>
+<div class="<?php echo $controller ?> index">
+	<h2><?php echo $h->nameize($controller); ?></h2>
 
-    <table cellspacing="0" class="display" id="table">
-      <thead>
+		<table cellspacing="0" class="display" id="table">
+			<thead>
 		<tr>
 			<?php foreach ($schema as $field => $options):?>
 				<?php if (in_array($field, $except)){continue;} ?>
 				<th><?php echo __(Inflector::humanize(preg_replace('/_id$/', '', $field)));?></th>
 			<?php endforeach;?>
 		</tr>
-      </thead>
+			</thead>
 		<?php foreach ($collection as $obj): ?>
 			<tr>
 				<?php
@@ -46,7 +46,7 @@
 						}
 					}
 				?>
-				<td><?php echo $html->link(__("Edit", true), array("action"=>"edit", $obj[$model]["id"]));  ?></td>
+				<td><?php echo $html->link(__("Edit", true), array("action"=>"edit", $obj[$model]["id"]));	?></td>
 				<td><?php echo $html->link(__("Destroy", true), array("action"=>"destroy", $obj[$model]["id"]), null, __("Are you sure?", true)); ?></td>
 			</tr>
 		<?php endforeach; ?>
@@ -54,7 +54,7 @@
 </div>
 
 <br/>
-<?php echo $html->link("New {$model}", array("action" => "add")); ?>
-<?php if (array_key_exists("position", $schema)): ?>
- | <?php echo $html->link("Reorder {$controller}", array("action" => "reorder")); ?> 
+<?php echo $html->link("New " . $h->nameize($model), array("action" => "add", isSet($this->passedArgs[0])?$this->passedArgs[0]:"")); ?>
+<?php if (array_key_exists("position", $schema) && count($collection) > 1): ?>
+ | <?php echo $html->link("Reorder " . $h->nameize($controller), array("action" => "reorder", isSet($this->passedArgs[0])?$this->passedArgs[0]:"")); ?> 
 <?php endif; ?>

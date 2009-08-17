@@ -1,7 +1,7 @@
 <?php
 class AppController extends Controller
 {
-	var $helpers = array("Html", "Form", "Javascript", "Session", "Time", "Text", "MetaTags");
+	var $helpers = array("Html", "Form", "Javascript", "Session", "Time", "Text", "H");
 	var $components = array("RequestHandler", "DebugKit.Toolbar");
 	// var $components = array("RequestHandler");
 	var $beforFilter = array();
