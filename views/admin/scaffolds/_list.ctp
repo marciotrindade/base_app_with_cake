@@ -7,7 +7,7 @@
 		<?php endif ?>
 		<span><?php echo $obj[$model]["name"]; ?></span>
 		<div>
-			<?php if ($obj[$model]["{$modelLow}_count"] > 0): ?>
+			<?php if ($obj[$model][strtolower($model)."_count"] > 0): ?>
 				<?php echo $html->link("Reorder children", array("action" => "reorder", $obj[$model]["id"])); ?>
 			<?php endif ?>
 			<?php echo $html->link("New children", array("action" => "add", $obj[$model]["id"])); ?>

@@ -30,7 +30,7 @@ class AdminController extends AppController
 		$model = $this->modelClass;
 		$controller = Inflector::tableize($this->name);
 
-		$this->set(compact("model_low", "controller_low", "model", "controller", "model_case"));
+		$this->set(compact("model", "controller"));
 	}
 
 	function index()
@@ -46,7 +46,7 @@ class AdminController extends AppController
 		$associations = $this->__associations();
 	
 		$this->set("associations", $associations);
-		$this->set("except", am(array("id", "created", "modified", "password", "position", "metatitle", "metadescription", "metakeywords", "permalink"), $this->except));
+		$this->set("except", am(array("id", "created", "modified", "password", "position", "meta_title", "meta_description", "meta_keywords", "permalink"), $this->except));
 		$this->set("schema", $this->{$this->modelClass}->_schema);
 
 		// render template
