@@ -31,16 +31,6 @@
 
 		echo $scripts_for_layout;
 	?>
-    <script type="text/javascript">
-        $(function(){
-	        $("#table").dataTable( {
-		        "aaSorting": [[ 0, "asc" ]],
-		        "sPaginationType": "full_numbers",
-		        "bStateSave": true,
-		        "bInfo": false
-	        }).css("width", "auto");
-        });
-    </script>
 </head>
 <body>
 

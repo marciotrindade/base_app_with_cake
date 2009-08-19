@@ -1,19 +1,19 @@
 $(function (){
 	//Admin Menu
 	$("#menu").superfish({
-		hoverClass	: "sfHover",
+		hoverClass: "sfHover",
 		currentClass: "overideThisToUse",
-		delay		: 800,
-		animation	: {opacity:"show"},
-		speed		: "normal"
+		delay: 800,
+		animation: {opacity:"show"},
+		speed: "normal"
 	});
 
 	// act_as_tree
-	$(".act_as_tree>li:last").css("background", "none").parent().find(".first").click(function() {
+	$(".act_as_tree>li:last").css("background", "none").parent().find(".first").click(function(e) {
+		e.preventDefault();
 		if ($(this).hasClass("first")) {
 			$.get($(this).attr("href"), null, null, "script");
 		}
-		return false;
 	});
 	act_as_tree_start_efect();
 
@@ -21,9 +21,16 @@ $(function (){
 	$(".validate").each(function(){
 		$(this).validate();
 	});
+
+	$("#table").dataTable( {
+		"aaSorting": [[ 0, "asc" ]],
+		"sPaginationType": "full_numbers",
+		"bStateSave": true,
+		"bInfo": false
+	});
 });
 
-var act_as_tree_id = 0;
+var act_as_tree_id;
 
 function act_as_tree_close_menu (obj) {
 	obj.fadeOut(500);
@@ -37,15 +44,17 @@ function act_as_tree_start_efect(){
 		});
 	}, function () {
 		$(this).css("background", "#ffffff");
-	}).click(function(a) {
+	}).click(function(e) {
+		e.preventDefault();
 		$(this).parent().find("div:first").fadeIn(500).css({
-			left: (a.pageX - 2) + "px",
-			top: (a.pageY - 2) + "px"
+			left: (e.pageX - 2) + "px",
+			top: (e.pageY - 2) + "px"
 		});
 	});
 	$(".act_as_tree div").hover(function () {
 		clearTimeout(act_as_tree_id);
 	},function () {
-		act_as_tree_id = setTimeout(act_as_tree_close_menu, 10, $(this));
+		obj = $(this);
+		act_as_tree_id = setTimeout(function(){act_as_tree_close_menu(obj);}, 1000);
 	});
 }
